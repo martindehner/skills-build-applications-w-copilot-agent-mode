@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+import os
 from django.contrib import admin
 from django.urls import path, include
 from octofit_tracker import views
@@ -26,8 +27,15 @@ router.register(r'activities', views.ActivityViewSet)
 router.register(r'leaderboard', views.LeaderboardViewSet)
 router.register(r'workouts', views.WorkoutViewSet)
 
+# Dynamically set API base path using CODESPACE_NAME
+codespace_name = os.environ.get('CODESPACE_NAME')
+if codespace_name:
+    api_base = f"api/"
+else:
+    api_base = "api/"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.api_root, name='api_root'),
-    path('', include(router.urls)),
+    path(f'{api_base}', include(router.urls)),
 ]

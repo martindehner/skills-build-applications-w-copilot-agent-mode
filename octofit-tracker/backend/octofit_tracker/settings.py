@@ -26,9 +26,12 @@ SECRET_KEY = 'django-insecure-8ny+3)#li5&x)qfe3f^4gmo#%)g4_)11#jb_+(q*n!2s%kz*)z
 DEBUG = True
 
 import os
-ALLOWED_HOSTS = ['*']
-if os.environ.get('CODESPACE_NAME'):
-    ALLOWED_HOSTS.append(f"{os.environ.get('CODESPACE_NAME')}-8000.app.github.dev")
+
+# Dynamically set allowed hosts for localhost and Codespace
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+codespace_name = os.environ.get('CODESPACE_NAME')
+if codespace_name:
+    ALLOWED_HOSTS.append(f"{codespace_name}-8000.app.github.dev")
 
 
 # Application definition
@@ -93,38 +96,24 @@ DATABASES = {
     }
 }
 
+# Password validation
+# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
-    # Password validation
-    # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
-
-    # CORS settings
-    CORS_ALLOW_ALL_ORIGINS = True
-    CORS_ALLOW_CREDENTIALS = True
-    CORS_ALLOW_HEADERS = [
-        'accept',
-        'accept-encoding',
-        'authorization',
-        'content-type',
+# CORS settings
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
         'dnt',
         'origin',
         'user-agent',
         'x-csrftoken',
         'x-requested-with',
-    ]
-    CORS_EXPOSE_HEADERS = ['Content-Disposition']
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
 ]
+CORS_EXPOSE_HEADERS = ['Content-Disposition']
 
 
 # Internationalization
