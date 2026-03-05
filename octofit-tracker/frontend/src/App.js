@@ -13,7 +13,10 @@ function App() {
     <Router>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
         <div className="container-fluid">
-          <Link className="navbar-brand fw-bold" to="/">Octofit Tracker</Link>
+          <Link className="navbar-brand d-flex align-items-center" to="/">
+            <img src={process.env.PUBLIC_URL + '/octofitapp-small.png'} alt="Octofit Logo" style={{height: '40px', marginRight: '12px'}} />
+            <span className="fw-bold" style={{color: '#ffeb3b'}}>Octofit Tracker</span>
+          </Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
